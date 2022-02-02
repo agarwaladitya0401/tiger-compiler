@@ -87,11 +87,11 @@ integers. For this purpose we define the meaning of an operator
 (binary) as a bivariate function on ints.
 
  *)
-
+exception DivisionByZero
 fun binOpDenote Plus  x y = x + y
   | binOpDenote Minus x y = x - y
   | binOpDenote Mul   x y = x * y
-  | binOpDenote Div   x y = x div y;
+  | binOpDenote Div   x y = if(y=0) then raise DivisionByZero else  x div y;
 
 fun exprDenote (Const x)       = x
   | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y);
