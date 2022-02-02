@@ -91,7 +91,7 @@ integers. For this purpose we define the meaning of an operator
 fun binOpDenote Plus  x y = x + y
   | binOpDenote Minus x y = x - y
   | binOpDenote Mul   x y = x * y
-  | binOpDenote Div   x y = x / y;
+  | binOpDenote Div   x y = x div y;
 
 fun exprDenote (Const x)       = x
   | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y);

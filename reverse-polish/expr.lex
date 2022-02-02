@@ -69,3 +69,5 @@ digit = [0-9];
 "-"           => ( Tokens.MINUS  (!lineRef,!lineRef) );
 "*"           => ( Tokens.MUL (!lineRef,!lineRef) );
 "/"           => ( Tokens.DIV (!lineRef,!lineRef) );
+"("           => ( Tokens.LBRAC (!lineRef,!lineRef) );
+")"           => ( Tokens.RBRAC (!lineRef,!lineRef) );
