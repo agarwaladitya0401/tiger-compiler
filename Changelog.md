@@ -1,14 +1,14 @@
 Lab 0:
-	made src directory
-	made Changelog.md
-	
+made src directory
+made Changelog.md
 Lab 1:
-	added multipy and brackets functionality
-	modified:   ast.sml
-	modified:   expr.grm
-	modified:   expr.lex
-	modified:   rp.lex
-	modified:   test.expr
-	modified:   test.inp
+added multipy and brackets functionality
+modified: ast.sml
+modified: expr.grm
+modified: expr.lex
+modified: rp.lex
+modified: test.expr
+modified: test.inp
 
-	
+Lab 2:
+added new file: target/mips.sml
