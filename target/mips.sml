@@ -472,5 +472,6 @@ fun prStmt (Inst i) = (prInst (i))
 
 end
 
-open MIPS;
-prInst (ADD (a0, a1, a2));
+(* testing *)
+(* open MIPS; *)
+(* prInst (ADD (a0, a1, a2)) *)
