@@ -1,6 +1,7 @@
 Lab 0:
 made src directory
 made Changelog.md
+
 Lab 1:
 added multipy and brackets functionality
 modified: ast.sml
@@ -12,3 +13,7 @@ modified: test.inp
 
 Lab 2:
 added new file: target/mips.sml
+
+Lab3:
+added initial files to tiger (.lex, .grm, ec.sml, ec.mlb...)
+updated ast.sml, .gitignore
