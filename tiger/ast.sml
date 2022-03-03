@@ -90,22 +90,22 @@ integers. For this purpose we define the meaning of an operator
 (binary) as a bivariate function on ints.
 
  *)
- 
+
 exception DivisionByZero
-fun binOpDenote Plus  x y = x + y
+(* fun binOpDenote Plus  x y = x + y
   | binOpDenote Minus x y = x - y
   | binOpDenote Mul   x y = x * y
-  | binOpDenote Div   x y = if(y=0) then raise DivisionByZero else  x div y;
+  | binOpDenote Div   x y = if(y=0) then raise DivisionByZero else  x div y; *)
 
-fun exprDenote (Const x)       = x
-  | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y);
+(* fun exprDenote (Const x)       = x
+  | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y); *)
 
 (* Conversion to strings *)
 
-fun binOpToString Plus  = "+"
+(* fun binOpToString Plus  = "+"
   | binOpToString Minus = "-"
   | binOpToString Mul   = "*"
-  | binOpToString Div   = "/"
+  | binOpToString Div   = "/" *)
 
 (* Some helper functions *)
 fun plus  a b = Op (a, Plus, b)
