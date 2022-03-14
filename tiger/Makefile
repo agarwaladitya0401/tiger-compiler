@@ -5,7 +5,7 @@
 %.grm.sml: %.grm
 	mlyacc $<
 
-all: rp ec
+all: ec
 
 
 .PHONY: all clean test
@@ -14,13 +14,14 @@ clean:
 	rm -f *.lex.sml rp
 	rm -f *.grm.sml *.grm.desc *.grm.sig ec
 
-rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
-	mlton rp.mlb
+# rp: rp.lex.sml rp.mlb rp.sml ${COMMON}
+# 	mlton rp.mlb
 
-ec: ec.sml ec.mlb expr.grm.sml expr.lex.sml ${COMMON} translate.sml
+ec: ec.sml ec.mlb tiger.grm.sml tiger.lex.sml ${COMMON} translate.sml
 	mlton ec.mlb
 
 
 test: all
-	${CURDIR}/rp test.inp
-	${CURDIR}/ec test.expr | ${CURDIR}/rp
+	# ${CURDIR}/rp test.inp
+	# ${CURDIR}/ec test.expr | ${CURDIR}/rp
+	${CURDIR}/ec test.expr

@@ -11,7 +11,7 @@ and BinOp = Plus
                | Div
 
 datatype Stmt = Println of Expr
-              | Assign of Expr*Expr
+              | Assign of string*Expr
 
                
 
@@ -26,8 +26,7 @@ fun binOpDenote Plus  x y = x + y
   | binOpDenote Div   x y = if(y=0) then raise DivisionByZero else  x div y;
 
 fun exprDenote (Const x)       = x
-  | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y);
-  | exprDenote (Variable x)    = 
+  | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y)
 
 (* Conversion to strings *)
 

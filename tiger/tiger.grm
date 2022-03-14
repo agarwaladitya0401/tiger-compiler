@@ -14,13 +14,15 @@ it is empty *)
     | RBRAC
     | PRINTLN
     | ASSIGN
-    | VARIABLE
+    | VARIABLE of string
 
 (* The nonterminals of the language *)
 %nonterm EXP     of Ast.Expr
        | EXPS    of Ast.Expr list
        | PROGRAM of Ast.Stmt list
+       | STMT    of Ast.Stmt
        | STMTS   of Ast.Stmt list
+
 
 (*TODO 
 1. prog of ast.stmt list
@@ -51,8 +53,8 @@ left associative and the precedence increase as you go down this list.
 
 %%
 
-PROGRAM : EXPS                 ( EXPS )
-	| EXPS NEWLINE         ( EXPS )
+PROGRAM : STMTS             ( STMTS )
+	| STMTS NEWLINE         ( STMTS )
 
 (* (replace exps with stmt) *)
 
@@ -64,12 +66,12 @@ EXPS    : (* empty *)          ( []                  )
         
     (* stmt: expr assign expr | print expr*)
 STMTS : (*empty*)         ([])
-    |   STMT NEWLINE STMT (STMT :: STMTS)
+    |   STMT NEWLINE STMTS (STMT :: STMTS)
 
 STMT : PRINTLN EXP       (Ast.println EXP)
-    |  ASSIGN EXP EXP    (Ast.assign EXP1 EXP2)
+    |  ASSIGN VARIABLE EXP    (Ast.assign VARIABLE EXP1)
 
-EXP : VARIABLE             (Ast.variables VARIABLE) 
+EXP : VARIABLE             (Ast.Variable VARIABLE) 
     |CONST                 ( Ast.Const CONST     )
     | EXP PLUS EXP         ( Ast.plus  EXP1 EXP2 )
 	| EXP MINUS EXP        ( Ast.minus EXP1 EXP2 )
