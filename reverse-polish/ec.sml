@@ -58,6 +58,7 @@ fun print_error (s,i:int,_) = TextIO.output(TextIO.stdErr,
 
 val (program,_) = ExprParser.parse (0,thisLexer,print_error,()) (* parsing *)
 val executable  = Translate.compile program                     (* compiling/code generation *)
+(* val afd = regalloc executable *)
 val _           = TextIO.output(TextIO.stdOut, Machine.programToString executable)
 			       (* writing out the executable (in this case rp expression ) *)
 

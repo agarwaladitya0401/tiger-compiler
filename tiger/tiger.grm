@@ -19,7 +19,13 @@ it is empty *)
 (* The nonterminals of the language *)
 %nonterm EXP     of Ast.Expr
        | EXPS    of Ast.Expr list
-       | PROGRAM of Ast.Expr list
+       | PROGRAM of Ast.Stmt list
+       | STMTS   of Ast.Stmt list
+
+(*TODO 
+1. prog of ast.stmt list
+stmt of ast.expr
+*)
 
 %eop EOF (* What token to use as end of parsing token              *)
 %verbose (* Generates a printed form of the table in expr.grm.desc *)
@@ -48,15 +54,26 @@ left associative and the precedence increase as you go down this list.
 PROGRAM : EXPS                 ( EXPS )
 	| EXPS NEWLINE         ( EXPS )
 
+(* (replace exps with stmt) *)
+
 EXPS    : (* empty *)          ( []                  )
 	| EXP NEWLINE EXPS     ( EXP :: EXPS         )
 
-EXP     : VARIABLE 
-        |CONST                ( Ast.Const CONST     )
-        | EXP PLUS EXP         ( Ast.plus  EXP1 EXP2 )
+(* stmts: empty
+        | stmt newline stmts *)
+        
+    (* stmt: expr assign expr | print expr*)
+STMTS : (*empty*)         ([])
+    |   STMT NEWLINE STMT (STMT :: STMTS)
+
+STMT : PRINTLN EXP       (Ast.println EXP)
+    |  ASSIGN EXP EXP    (Ast.assign EXP1 EXP2)
+
+EXP : VARIABLE             (Ast.variables VARIABLE) 
+    |CONST                 ( Ast.Const CONST     )
+    | EXP PLUS EXP         ( Ast.plus  EXP1 EXP2 )
 	| EXP MINUS EXP        ( Ast.minus EXP1 EXP2 )
 	| EXP MUL   EXP        ( Ast.mul   EXP1 EXP2 )
-    | EXP DIV   EXP        ( Ast.div   EXP1 EXP2 )
+    | EXP DIV   EXP        ( Ast.divi   EXP1 EXP2 )
     | LBRAC EXP RBRAC      ( EXP)
-    | PRINT EXP            ()
-    | EXP ASSIGN EXP       ()
+ 

@@ -175,7 +175,8 @@ structure MIPS = struct
 
               | USH of 't * 'l
               | USW of 't * 'l
-
+            
+              | MOVE of 't * 't
               | MFHI of 't 
               | MFLO of 't 
 
@@ -473,5 +474,5 @@ fun prStmt (Inst i) = (prInst (i))
 end
 
 (* testing *)
-open MIPS;
-prInst (ADD (a0, a1, a2))
+(* open MIPS;
+prInst (ADD (a0, a1, a2)) *)
