@@ -17,7 +17,7 @@ added new file: target/mips.sml
 Lab3:
 added initial files to tiger (.lex, .grm, ec.sml, ec.mlb...)
 updated ast.sml, .gitignore
-corrected the code and terms in ir, translate.sml, ast.sml, tiger.grm
+corrected the code and terms in ir, translate.sml, ast.sml, tiger.grm, ec.mlb
 modified: ir/ir.sml
 modified: tiger/.gitignore
 modified: tiger/Makefile
