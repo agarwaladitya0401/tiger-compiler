@@ -9,8 +9,8 @@ temp.sml
 ast.sml         (* the syntax                                   *)
 machine.sml     (* The stack machine                            *)
 translate.sml   (* The translate function                       *)
+regalloc.sml
 tiger.grm.sig    (* The signature file generated for the grammar *)
 tiger.grm.sml    (* The parser                                   *)
 tiger.lex.sml    (* The lexer for the machine                    *)
-
 ec.sml
