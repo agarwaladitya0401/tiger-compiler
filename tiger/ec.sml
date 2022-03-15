@@ -58,9 +58,16 @@ fun print_error (s,i:int,_) = TextIO.output(TextIO.stdErr,
 					    "Error, line " ^ (Int.toString i) ^ ", " ^ s ^ "\n")
 
 val (program,_) = ExprParser.parse (0,thisLexer,print_error,()) (* parsing *)
-val executable  = Translate.compile program                     (* compiling/code generation *)
-val mipsExe 	= reg_alloc executable
-val _           = TextIO.output(TextIO.stdOut, Mips.programToString executable)
+(* val prog = Ast.progList program *)
+val executable  = Translate.compile program 
+                    (* compiling/code generation *)
+
+(* printing IR for debugging
+val t = IR.pp (executable) *)
+
+val mipsExe 	= RA.reg_alloc (executable)
+val _           = TextIO.output(TextIO.stdOut, MIPS.prProg mipsExe)
+
 			       (* writing out the executable (in this case rp expression ) *)
 
 end

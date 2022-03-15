@@ -66,12 +66,9 @@ variable = [a-z];
 		   end
 		 );
 {digit}+      => ( Tokens.CONST (toInt yytext, !lineRef, !lineRef) );
-{variable}+   => ( Tokens.VARIABLE (yytext, !lineRef, !lineRef) );
 "+"           => ( Tokens.PLUS  (!lineRef,!lineRef) );
 "-"           => ( Tokens.MINUS  (!lineRef,!lineRef) );
 "*"           => ( Tokens.MUL (!lineRef,!lineRef) );
-"/"           => ( Tokens.DIV (!lineRef,!lineRef) );
-"("           => ( Tokens.LBRAC (!lineRef,!lineRef) );
-")"           => ( Tokens.RBRAC (!lineRef,!lineRef) );
 "print"       => ( Tokens.PRINTLN (!lineRef,!lineRef) );
 ":="          => ( Tokens.ASSIGN (!lineRef,!lineRef) );
+{variable}+   => ( Tokens.VARIABLE (yytext, !lineRef, !lineRef) );

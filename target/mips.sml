@@ -195,7 +195,7 @@ datatype directive =  ALIGN of int
                     | BYTE of int list
                     | DATA
                     | EXTERN of int*int
-                    | GLOBL of int 
+                    | GLOBL of string  
                     | HALF of int list
                     | KDATA
                     | KTEXT
@@ -208,8 +208,7 @@ datatype directive =  ALIGN of int
  (* The instructions and assembler directives *)
  datatype ('l,'t) stmt = Inst of ('l, 't) inst
                         | Dir of directive
-
-
+                        | Lab of string 
 
  (* printing the registors in machine understandable form *)
 
@@ -429,7 +428,7 @@ fun customPrintl3 (r1, r2, l1) = printreg(r1) ^ " " ^ printreg(r2) ^ " " ^ print
 
           | prInst (USW (r1, l1)) = "usw " ^ customPrintl2(r1, l1)
 
-
+          | prInst (MOVE (r1, r2)) = "move " ^ customPrintr2(r1, r2)
           | prInst (MFHI (r1)) = "mfhi " ^ customPrintr1(r1)
           | prInst (MFLO (r1)) = "mflo " ^ customPrintr1(r1)
 
@@ -459,7 +458,7 @@ fun prDir (ALIGN (n)) =  ".align " ^ (Int.toString n)
     | prDir (BYTE (xs)) =  ".byte " ^ intListToString (xs)
     | prDir (DATA    ) =  ".data "
     | prDir (EXTERN (a,b)) =  ".extern " ^ (Int.toString a) ^ " " ^ (Int.toString b)
-    | prDir (GLOBL (n)) =  ".globl " ^ (Int.toString n)
+    | prDir (GLOBL (n)) =  ".globl " ^ n
     | prDir (HALF (xs)) =  ".half " ^ intListToString (xs)
     | prDir (KDATA    ) =  ".kdata "
     | prDir (KTEXT    ) =  ".ktext "
@@ -467,10 +466,18 @@ fun prDir (ALIGN (n)) =  ".align " ^ (Int.toString n)
     | prDir (TEXT    ) =  ".text "
     | prDir (WORD (xs)) =  ".word " ^ stringListToString (xs)
 
-(* finally printing the statement, which is either instruction or directive *)
-fun prStmt (Inst i) = (prInst (i))
-    | prStmt (Dir d) = (prDir (d))
 
+(* finally printing the statement, which is either instruction or directive *)
+fun prStmt (Inst i) = prInst (i)
+    | prStmt (Dir d) = (prDir (d))
+    | prStmt (Lab l) = (printlabel (l))
+
+fun prProg [] = ""
+   | prProg (x::xs) = let 
+                        val a = prStmt x
+                      in
+                        a ^ "\n" ^ prProg(xs)
+                      end
 end
 
 (* testing *)

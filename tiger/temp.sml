@@ -29,7 +29,8 @@ val b = Temp.newtemp()
 val e = AtomMap.insert(e,Atom.atom "a0",a)
 val e = AtomMap.insert(e,Atom.atom "v0",b)
 val c = AtomMap.lookup(e,Atom.atom("a0"))
-val d = AtomMap.lookup(e,Atom.atom("v0")) *)
-
+val d = AtomMap.lookup(e,Atom.atom("v0"))
+val e = Temp.tempToInt(b)
+val f = Temp.toTemp(e) *)
 
 

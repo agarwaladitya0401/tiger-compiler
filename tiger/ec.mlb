@@ -7,7 +7,6 @@ $(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 temp.sml
 ../ir/ir.sml
 ast.sml         (* the syntax                                   *)
-machine.sml     (* The stack machine                            *)
 translate.sml   (* The translate function                       *)
 regalloc.sml
 tiger.grm.sig    (* The signature file generated for the grammar *)

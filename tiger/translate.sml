@@ -50,7 +50,7 @@ fun compileStmt (Ast.Println (x)) = let
                                       val b = AtomMap.lookup(e,Atom.atom("v0"))
                                       val c = Temp.newtemp()
                                       val t = compileExpr(c,x)
-                                      val com = t @ IR.print (a,b,c)
+                                      val com = t @ IR.Print (a,b,c)
                                       in
                                         com
                                       end
@@ -61,6 +61,9 @@ fun compileStmt (Ast.Println (x)) = let
                                         val t = compileExpr(b,y)
                                         val e = AtomMap.insert(e,Atom.atom x,a)
                                         val com = t @ [IR.mv (a,b)]
+                                        (* utility function to print assign values
+                                        fun prVar (x) = print(x ^ "\n") 
+                                        fun prConst (Ast.Const x1)       = print(Int.toString(x1)^ "\n")  *)
                                       in
                                         com
                                       end
@@ -76,8 +79,16 @@ fun compile x = let
                   val e = AtomMap.insert(e,Atom.atom "a0",a)
                   val e = AtomMap.insert(e,Atom.atom "v0",b)
                 in 
-                  compiled(x)
+                  [MIPS.Dir (MIPS.DATA), MIPS.Dir (MIPS.TEXT), MIPS.Dir (MIPS.GLOBL ("main")), MIPS.Lab "main:"] @ compiled(x) 
+                  (* compiled(x) *)
                 end
+
+
+(* TODO: the map is not updated as its in the let block only *)
+(* val a = Temp.newtemp()
+e = AtomMap.insert(e,Atom.atom "a0",a)
+val c = AtomMap.lookup(e,Atom.atom("a0")) *)
+
 
 end
 

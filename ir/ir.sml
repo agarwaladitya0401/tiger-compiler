@@ -2,16 +2,16 @@ structure IR : sig
   type inst = (string, Temp.temp) MIPS.inst
   type stmt = (string, Temp.temp) MIPS.stmt
   type prog = stmt list
-  (* val ppInst : inst -> string
-  val ppStmt : stmt -> string
-  val pp     : prog -> string *)
-  val add : Temp.temp * Temp.temp  * Temp.temp -> inst
+  (* val ppInst : inst -> unit *)
+  (* val ppStmt : stmt -> unit *)
+  (* val pp     : prog -> unit *)
+  val add : Temp.temp * Temp.temp  * Temp.temp -> stmt
   (* val imm : Temp.temp -> MIPS.reg *)
-  val mul : Temp.temp * Temp.temp * Temp.temp -> inst
-  val sub : Temp.temp * Temp.temp * Temp.temp -> inst
-  val li  : Temp.temp * Temp.temp -> inst
-  val print : Temp.temp * Temp.temp * Temp.temp -> (string, Temp.temp) MIPS.inst list
-  val mv : Temp.temp * Temp.temp -> inst
+  val mul : Temp.temp * Temp.temp * Temp.temp -> stmt
+  val sub : Temp.temp * Temp.temp * Temp.temp -> stmt
+  val li  : Temp.temp * Temp.temp -> stmt
+  val Print : Temp.temp * Temp.temp * Temp.temp -> (string, Temp.temp) MIPS.stmt list
+  val mv : Temp.temp * Temp.temp -> stmt
   (* val print :  *)
 end = struct
   type inst = (string, Temp.temp) MIPS.inst
@@ -19,14 +19,21 @@ end = struct
   type prog = stmt list
   (* fun imm x = (MIPS.reg imm(x))  *)
 
-  fun add (a,b,c) = MIPS.ADD (a,b,c)
-  fun sub (a,b,c) = MIPS.SUB (a,b,c)
-  fun mul (a,b,c) = MIPS.MUL (a,b,c)
-  fun li (a,b)    = MIPS.LI (a,b)
-  fun mv (a,b)    = MIPS.MOVE (a,b)
-  fun print (a:Temp.temp,b:Temp.temp,c:Temp.temp)  = [(MIPS.MOVE (a, c)), (MIPS.LI (b, Temp.toTemp(1))), (MIPS.SYSCALL)]
+  fun add (a,b,c) = MIPS.Inst (MIPS.ADD (a,b,c))
+  fun sub (a,b,c) = MIPS.Inst (MIPS.SUB (a,b,c))
+  fun mul (a,b,c) = MIPS.Inst (MIPS.MUL (a,b,c))
+  fun li (a,b)    = MIPS.Inst (MIPS.LI (a,b))
+  fun mv (a,b)    = MIPS.Inst (MIPS.MOVE (a,b))
+  fun Print (a:Temp.temp,b:Temp.temp,c:Temp.temp)  = [(mv (a, c)), (li (b, Temp.toTemp(1))), (MIPS.Inst (MIPS.SYSCALL))]
 
-  (* IR.inst -> list  *)
+  (* fun ppStmt (MIPS.Inst (MIPS.LI (a,b))) 
+              = (print("li "); print(Temp.tempToString(a)^ " ");print(Temp.tempToString(b) ^ " \n"))
+      |  ppStmt (MIPS.Inst (MIPS.MOVE (a,b))) 
+              = (print("mv "); print(Temp.tempToString(a) ^ " ");print(Temp.tempToString(b) ^ " \n"))
+
+  fun pp [] = ()
+    | pp (x::xs) = (ppStmt(x); pp (xs)) *)
+  (* inst -> list  *)
 
 end
 
