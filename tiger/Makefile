@@ -22,6 +22,4 @@ ec: ec.sml ec.mlb tiger.grm.sml tiger.lex.sml ${COMMON} translate.sml
 
 
 test: all
-	# ${CURDIR}/rp test.inp
-	# ${CURDIR}/ec test.expr | ${CURDIR}/rp
 	${CURDIR}/ec test.expr

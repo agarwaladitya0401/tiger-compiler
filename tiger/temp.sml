@@ -18,8 +18,6 @@ structure Temp :> TEMP = struct
    fun toTemp x = x 
    fun tempToInt x = x
 
-   (* fun newtemp  _     = complete this, return old nextTemp and incr this*)
-   (* fun tempToString t = complete this *)
 end
 
 (* below is the example of Atom map operations on above Temp structure  *)

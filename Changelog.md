@@ -40,3 +40,10 @@ new file: tiger/test.expr
 modified: tiger/tiger.grm
 modified: tiger/tiger.lex
 modified: tiger/translate.sml
+
+added complete functionality to compile Assign and Print statements
+modified: Makefile
+modified: regalloc.sml
+modified: temp.sml
+modified: test.expr
+modified: translate.sml
