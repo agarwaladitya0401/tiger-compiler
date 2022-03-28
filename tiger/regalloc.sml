@@ -23,19 +23,34 @@ fun tempToReg (0) =  MIPS.a0
     | tempToReg (13) = MIPS.s3
     | tempToReg (14) = MIPS.s4
     | tempToReg (15) = MIPS.s5
-    | tempToReg (15) = MIPS.s6
-    | tempToReg (15) = MIPS.s7
+    | tempToReg (16) = MIPS.s6
+    | tempToReg (17) = MIPS.s7
 
 (* val compileInst: MIPS.inst -> MIPS.Inst *)
 (* a:Temp.temp,b:Temp.temp,c:Temp.temp *)
 fun compileInst (MIPS.Inst (MIPS.ADD (a,b,c))) = MIPS.Inst (MIPS.ADD (tempToReg(Temp.tempToInt(a)), tempToReg(Temp.tempToInt(b)), tempToReg(Temp.tempToInt(c))))
+
     |  compileInst (MIPS.Inst (MIPS.SUB (a,b,c))) = MIPS.Inst (MIPS.SUB (tempToReg(Temp.tempToInt(a)), tempToReg(Temp.tempToInt(b)), tempToReg(Temp.tempToInt(c)))) 
+
     |  compileInst (MIPS.Inst (MIPS.MUL (a,b,c))) = MIPS.Inst (MIPS.MUL (tempToReg(Temp.tempToInt(a)), tempToReg(Temp.tempToInt(b)), tempToReg(Temp.tempToInt(c))))
+
     |  compileInst (MIPS.Inst (MIPS.LI (a,b) )) = MIPS.Inst (MIPS.LI (tempToReg(Temp.tempToInt(a)), MIPS.imm(Temp.tempToInt(b)))) 
+    
     |  compileInst (MIPS.Inst (MIPS.MOVE (a,b) )) = MIPS.Inst ( MIPS.MOVE (tempToReg(Temp.tempToInt(a)), tempToReg(Temp.tempToInt(b)))) 
+
     |  compileInst (MIPS.Dir x ) = MIPS.Dir x 
+
     |  compileInst (MIPS.Lab x ) = MIPS.Lab x
+
     |  compileInst (MIPS.Inst MIPS.SYSCALL ) = MIPS.Inst MIPS.SYSCALL
+
+    |  compileInst (MIPS.Inst (MIPS.BGT (a,b,c))) = MIPS.Inst (MIPS.BGT (tempToReg
+    (Temp.tempToInt(a)), MIPS.imm(Temp.tempToInt(b)), c))
+
+    |  compileInst (MIPS.Inst (MIPS.ADDI (a,b,c))) = MIPS.Inst (MIPS.ADDI (tempToReg(Temp.tempToInt(a)), tempToReg(Temp.tempToInt(b)),  MIPS.imm(Temp.tempToInt(c))))
+
+    |  compileInst (MIPS.Inst (MIPS.J x )) = MIPS.Inst (MIPS.J (x) )
+
     | compileInst _ = raise Failure 
 
     

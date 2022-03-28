@@ -1,8 +1,11 @@
 signature TEMP =
   sig
      type temp
+     type label
      val newtemp    : unit -> temp
+     val newlabel   : unit -> label
      val tempToString : temp -> string
+     val labelToString : label -> string
      val toTemp : int -> temp
      val tempToInt : temp -> int
   end
@@ -12,9 +15,13 @@ structure Temp :> TEMP = struct
    type temp  = int (* 2ʷ many variables on a w-sized machine *)
               (* you can use IntInf.int if you want unbounded *)
 
+   type label = int
    val nextTemp       = ref 0 (* Keep track of how many temps have been allocated *)
    fun newtemp _ = let val t = !nextTemp in nextTemp := t+1; t end
+   val nextLabel       = ref 0
    fun tempToString t = "t" ^ Int.toString t
+   fun newlabel _ = let val t = !nextLabel in nextLabel := t+1; t end
+   fun labelToString t = "l" ^ Int.toString t
    fun toTemp x = x 
    fun tempToInt x = x
 

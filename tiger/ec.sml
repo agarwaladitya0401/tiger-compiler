@@ -62,8 +62,8 @@ val (program,_) = ExprParser.parse (0,thisLexer,print_error,()) (* parsing *)
 val executable  = Translate.compile program 
                     (* compiling/code generation *)
 
-(* printing IR for debugging
-val t = IR.pp (executable) *)
+(* printing IR for debugging *)
+(* val t = IR.pp (executable) *)
 
 val mipsExe 	= RA.reg_alloc (executable)
 val _           = TextIO.output(TextIO.stdOut, MIPS.prProg mipsExe)

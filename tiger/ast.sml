@@ -12,6 +12,7 @@ and BinOp = Plus
 
 datatype Stmt = Println of Expr
               | Assign of string*Expr
+              | For of string * int * int * (Stmt list)
 
                
 
@@ -38,13 +39,13 @@ fun binOpToString Plus  = "+"
 (* Some helper functions *)
 
 (* utility functions to print expressions *)
-fun prConst (Const x)       = print(Int.toString(x))
+(* fun prConst (Const x)       = print(Int.toString(x)) *)
 
-fun printProg (Assign (a,b)) = (print("assign");print(a);prConst(b))
-    | printProg _ = print("0\n")
+(* fun printProg (Assign (a,b)) = (print("assign");print(a);prConst(b))
+    | printProg _ = print("0\n") *)
 
-fun progList [] = ()
-    | progList (x::xs) = (printProg (x); progList(xs))
+(* fun progList [] = ()
+    | progList (x::xs) = (printProg (x); progList(xs)) *)
 
 fun plus  a b = Op (a, Plus, b)
 fun minus a b = Op (a, Sub, b)
@@ -54,6 +55,7 @@ fun mul   a b = Op (a, Mul, b)
 
 fun assign a b = Assign (a,b)
 fun println a = Println (a)
+fun for x a b stmts = For(x,a,b,stmts)
 
 end
 

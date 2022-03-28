@@ -357,7 +357,7 @@ fun customPrintl3 (r1, r2, l1) = printreg(r1) ^ " " ^ printreg(r2) ^ " " ^ print
           | prInst (BGEZ (r1, l1)) = "bgez " ^ customPrintl2(r1, l1)
           | prInst (BGEZAL (r1, l1)) = "bgezal " ^ customPrintl2(r1, l1)
 
-          | prInst (BGT (r1, r2, l1)) = "bgT " ^ customPrintl3(r1, r2, l1)
+          | prInst (BGT (r1, r2, l1)) = "bgt " ^ customPrintl3(r1, r2, l1)
           | prInst (BGTU (r1, r2, l1)) = "bgtu " ^ customPrintl3(r1, r2, l1)
 
           | prInst (BGTZ (r1, l1)) = "bgtz " ^ customPrintl2(r1, l1)
@@ -472,7 +472,7 @@ fun prStmt (Inst i) = prInst (i)
     | prStmt (Dir d) = (prDir (d))
     | prStmt (Lab l) = (printlabel (l))
 
-fun prProg [] = ""
+fun prProg [] =  ""
    | prProg (x::xs) = let 
                         val a = prStmt x
                       in

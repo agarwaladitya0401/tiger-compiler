@@ -1,5 +1,9 @@
-structure Translate =
-struct
+structure Translate : sig
+val compileExpr: (Temp.temp AtomRedBlackMap.map)* Temp.temp * Ast.Expr -> (Temp.temp AtomRedBlackMap.map) * ((string, Temp.temp) MIPS.stmt list)
+val compileStmt: (Temp.temp AtomRedBlackMap.map) * Ast.Stmt -> (Temp.temp AtomRedBlackMap.map) * ((string, Temp.temp) MIPS.stmt list)
+val compiled: (Temp.temp AtomRedBlackMap.map) * (Ast.Stmt list) -> ((string, Temp.temp) MIPS.stmt list)
+val compile: (Ast.Stmt list) -> ((string, Temp.temp) MIPS.stmt list)
+end = struct
 
 val e = AtomMap.empty
 
@@ -70,16 +74,35 @@ fun compileStmt (e, Ast.Println (x)) = let
                                         (en,com)
                                       end
 
+    | compileStmt (e, Ast.For(x,a,b,(stmts:Ast.Stmt list))) = let
+                                                  val new_e = e
+                                                  val l = Temp.newlabel()
+                                                  val t = Temp.newtemp()
+                                                  val new_e = AtomMap.insert(new_e,Atom.atom x,t)
+                                                  val c1 = [(IR.li (t, Temp.toTemp(a)))]
+                                                  val c2 = [MIPS.Lab (Temp.labelToString(l) ^ ":")]
+                                                  val c3 = [IR.bgt(t,Temp.toTemp(b),"exit:")]
+                                                  val c4 = [IR.addi(t,t,Temp.toTemp(1))]
+                                                  val c5 = compiled(new_e,stmts)
+                                                  val c6 = [IR.jump(l)]
+
+                                                  val c7 = [MIPS.Lab "exit:"]
+                                                in 
+                                                  (e, c1@c2@c3@c4@c5@c6@c7)
+                                                 
+                                                end
 
 
-fun compiled (e,[])        = []
+
+and compiled (e,[])        = []
   | compiled (e, x :: xs) = let 
-                              val (e,t) = compileStmt (e,x) 
+                              val (en,t) = compileStmt (e,x) 
+                              
                             in
-                              t @ compiled (e,xs)
+                              t @ (compiled (en,xs))
                             end
 
-fun compile x = let 
+and compile x = let 
                   val a = Temp.newtemp()
                   val b = Temp.newtemp()
                   val en = AtomMap.insert(e,Atom.atom "a0",a)

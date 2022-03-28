@@ -12,6 +12,12 @@ it is empty *)
     | PRINTLN
     | ASSIGN
     | VARIABLE of string
+    | FOR
+    | DO
+    | DONE
+    | TO
+    | EQUAL
+
     (* | DIV
     | LBRAC
     | RBRAC *)
@@ -80,6 +86,7 @@ EXP : VARIABLE             (Ast.Variable VARIABLE)
 
 STMT : PRINTLN EXP       (Ast.println EXP)
     |  VARIABLE ASSIGN EXP    (Ast.assign VARIABLE EXP)
+    | FOR VARIABLE EQUAL CONST TO CONST NEWLINE DO NEWLINE STMTS DONE   (Ast.for VARIABLE CONST1 CONST2 STMTS) 
 
     (* | EXP DIV   EXP        ( Ast.divi   EXP1 EXP2 )
     | LBRAC EXP RBRAC      ( EXP) *)
