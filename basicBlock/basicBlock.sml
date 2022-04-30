@@ -1,5 +1,5 @@
 type block = (string, Temp.temp) MIPS.stmt list
-val basicBlocks : (string, Temp.temp) MIPS.stmt list -> block list
+(* val basicBlocks : (string, Temp.temp) MIPS.stmt list -> block list *)
 
 signature INST = sig
     type t   (* The type of the instruction *)
@@ -13,7 +13,6 @@ functor BasicBlocks (I : INST) = struct
     type block = I.t list
     val isJumpLike = I.isJumpLike
     val isTarget = I.isTarget
-    fun basicBlocks (xs) = utilBasicBlokcs(xs,[],[[]])
 
 (* utility function to get block list ('bl') *)
     fun utilBasicBlokcs (a::b::c,l,bl) = if isTarget(a) 
@@ -31,16 +30,18 @@ functor BasicBlocks (I : INST) = struct
     | utilBasicBlokcs (a::[],l,bl) =  bl @ [l @ [a]] 
     | utilBasicBlokcs ([],l,bl) = bl
 
+    fun basicBlocks (xs) = utilBasicBlokcs(xs,[],[[]])
+
 end
 
 structure MIPSInst : INST = struct
     type t = (string, Temp.temp) MIPS.stmt
-    fun isJumpLike (MIPS.Inst (MIPS.J (x) )) = 1
-    | isJumpLike (MIPS.Inst (MIPS.BGT (a,b,c))) = 1
-    | isJumpLike _ = 0
+    fun isJumpLike (MIPS.Inst (MIPS.J (x) )) = true
+    | isJumpLike (MIPS.Inst (MIPS.BGT (a,b,c))) = true
+    | isJumpLike _ = false
 
-    fun isTarget (MIPS.Lab x) = 1
-    | isTarget (_ , _ ) = 0
+    fun isTarget (MIPS.Lab x) = true
+    | isTarget _ = print("Either the instruction is not a jump statement or its ") false
 end
 
 structure MIPSBasicBlocks = BasicBlocks (MIPSInst)
