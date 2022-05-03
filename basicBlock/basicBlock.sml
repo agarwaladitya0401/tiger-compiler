@@ -41,7 +41,7 @@ structure MIPSInst : INST = struct
     | isJumpLike _ = false
 
     fun isTarget (MIPS.Lab x) = true
-    | isTarget _ = print("Either the instruction is not a jump statement or its ") false
+    | isTarget _ =  false
 end
 
 structure MIPSBasicBlocks = BasicBlocks (MIPSInst)

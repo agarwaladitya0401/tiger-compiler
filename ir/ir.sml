@@ -40,7 +40,7 @@ end = struct
               = (print("j "); print(l ^ " "))
       |  ppStmt (MIPS.Inst (MIPS.BGT (a,b,c))) 
               = (print("bgt "); print(Temp.tempToString(a) ^ " ");print(Temp.tempToString(b) ^ " " ^c  ^" \n"))
-    
+
   fun pp [] = ()
     | pp (x::xs) = (ppStmt(x); pp (xs))
 

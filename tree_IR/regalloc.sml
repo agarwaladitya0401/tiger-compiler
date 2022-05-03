@@ -36,7 +36,6 @@ fun compileInst (MIPS.Inst (MIPS.ADD (a,b,c))) = MIPS.Inst (MIPS.ADD (tempToReg(
 
     |  compileInst (MIPS.Inst (MIPS.LI (a,b) )) = MIPS.Inst (MIPS.LI (tempToReg(Temp.tempToInt(a)), MIPS.imm(Temp.tempToInt(b)))) 
     
-    
     |  compileInst (MIPS.Inst (MIPS.MOVE (a,b) )) = MIPS.Inst ( MIPS.MOVE (tempToReg(Temp.tempToInt(a)), tempToReg(Temp.tempToInt(b)))) 
 
     |  compileInst (MIPS.Dir x ) = MIPS.Dir x 

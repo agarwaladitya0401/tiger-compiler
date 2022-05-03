@@ -23,5 +23,3 @@ ec: ec.sml ec.mlb tiger.grm.sml tiger.lex.sml ${COMMON} translate.sml
 
 test: all 
 	${CURDIR}/ec test.expr > out.mips
-	spim -f out.mips
-

@@ -1,0 +1,18 @@
+.data 
+.text 
+.globl main
+main:
+move $t4 $t1
+li $t5 5
+move $t4 $t5
+move $t6 $t0
+move $t7 $t1
+move $t6 $t7
+move $s0 $t3
+li $s1 2
+move $s0 $s1
+move $s2 $t2
+move $s3 $t3
+move $s2 $s3
+li $v0 10
+syscall 

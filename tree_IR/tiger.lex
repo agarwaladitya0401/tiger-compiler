@@ -77,5 +77,3 @@ variable = [a-z];
 "="          => ( Tokens.EQUAL (!lineRef,!lineRef) );
 "to"          => ( Tokens.TO (!lineRef,!lineRef) );
 {variable}+   => ( Tokens.VARIABLE (yytext, !lineRef, !lineRef) );
-"("           => ( Tokens.LBRAC (!lineRef,!lineRef) );
-")"           => ( Tokens.RBRAC (!lineRef,!lineRef) );

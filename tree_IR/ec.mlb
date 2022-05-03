@@ -1,0 +1,17 @@
+$(SML_LIB)/basis/basis.mlb
+$(SML_LIB)/mlyacc-lib/mlyacc-lib.mlb
+$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
+
+
+../target/mips.sml
+tree_temp.sml
+../ir/ir.sml
+ast.sml         (* the syntax                                   *)
+tree_ir.sml
+translate.sml   (* The translate function                       *)
+canonize.sml
+regalloc.sml
+tiger.grm.sig    (* The signature file generated for the grammar *)
+tiger.grm.sml    (* The parser                                   *)
+tiger.lex.sml    (* The lexer for the machine                    *)
+ec.sml

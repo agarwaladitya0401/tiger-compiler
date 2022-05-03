@@ -11,7 +11,10 @@ signature TEMP =
   end
 
 structure Temp :> TEMP = struct
-   type temp  = int 
+
+   type temp  = int (* 2ʷ many variables on a w-sized machine *)
+              (* you can use IntInf.int if you want unbounded *)
+
    type label = int
    val nextTemp       = ref 0 (* Keep track of how many temps have been allocated *)
    fun newtemp _ = let val t = !nextTemp in nextTemp := t+1; t end
@@ -21,6 +24,7 @@ structure Temp :> TEMP = struct
    fun labelToString t = "l" ^ Int.toString t
    fun toTemp x = x 
    fun tempToInt x = x
+
 end
 
 (* below is the example of Atom map operations on above Temp structure  *)

@@ -81,14 +81,14 @@ fun compileStmt (e, Ast.Println (x)) = let
                                                   val new_e = AtomMap.insert(new_e,Atom.atom x,t)
                                                   val c1 = [(IR.li (t, Temp.toTemp(a)))]
                                                   val c2 = [MIPS.Lab (Temp.labelToString(l) ^ ":")]
-                                                  val c3 = [IR.bgt(t,Temp.toTemp(b),"exit:")]
+                                                  val c3 = [IR.bgt(t,Temp.toTemp(b),"exit")]
                                                   val c4 = [IR.addi(t,t,Temp.toTemp(1))]
                                                   val c5 = compiled(new_e,stmts)
                                                   val c6 = [IR.jump(l)]
 
                                                   val c7 = [MIPS.Lab "exit:"]
                                                 in 
-                                                  (e, c1@c2@c3@c4@c5@c6@c7)
+                                                  (e, c1@c2@c3@c5@c4@c6@c7)
                                                  
                                                 end
 

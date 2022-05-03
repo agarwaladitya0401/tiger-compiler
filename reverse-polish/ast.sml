@@ -47,10 +47,7 @@ trees_ or AST's for short.
 The advantage of Standard ML for writing compilers starts showing
 itself right away: It almost seems that algebraic data types are
 tailor made to represent abstract syntax trees of programming
-languages. Here is the one for our rather humble expression language.
-
-
-*)
+languages. Here is the one for our rather humble expression language. *)
 
 datatype Expr  = Const of int
                | Op    of Expr * BinOp * Expr
@@ -73,25 +70,27 @@ for time being.
 
 The rest of the module can be skipped for the first reading. Instead
 start reading the machine.sml where we describe the reverse polish
-machine.
+machine.*)
 
 
-*)
-
-
-(** ** Meanings of expression
+(* Meanings of expression
 
 We give the "meaning" of an expression by converting it into ML
 values. Our target is to give the meaning of expressions as
 integers. For this purpose we define the meaning of an operator
-(binary) as a bivariate function on ints.
+(binary) as a bivariate function on ints.*)
 
- *)
+(* exception Failure
+
+handle Failure => 1 *)
+
 exception DivisionByZero
 fun binOpDenote Plus  x y = x + y
   | binOpDenote Minus x y = x - y
   | binOpDenote Mul   x y = x * y
-  | binOpDenote Div   x y = if(y=0) then raise DivisionByZero else  x div y;
+  | binOpDenote Div   x y = if(y=0) then (print("division with 0 is not defined "); 0) else x div y
+  
+
 
 fun exprDenote (Const x)       = x
   | exprDenote (Op (x,oper,y)) = binOpDenote oper (exprDenote x) (exprDenote y);

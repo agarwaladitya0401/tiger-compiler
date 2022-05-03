@@ -17,9 +17,10 @@ it is empty *)
     | DONE
     | TO
     | EQUAL
-    | LBRAC
-    | RBRAC
 
+    (* | DIV
+    | LBRAC
+    | RBRAC *)
 
 (* The nonterminals of the language *)
 %nonterm EXP     of Ast.Expr
@@ -64,7 +65,15 @@ left associative and the precedence increase as you go down this list.
 PROGRAM : STMTS             ( STMTS )
 	| STMTS NEWLINE         ( STMTS )
 
+(* (replace exps with stmt) *)
 
+(* EXPS    : (* empty *)          ( []                  )
+	| EXP NEWLINE EXPS     ( EXP :: EXPS         ) *)
+
+(* stmts: empty
+        | stmt newline stmts *)
+        
+    (* stmt: expr assign expr | print expr*)
 STMTS : (*empty*)         ([])
     |   STMT NEWLINE STMTS (STMT :: STMTS)
 
@@ -73,12 +82,12 @@ EXP : VARIABLE             (Ast.Variable VARIABLE)
     | EXP PLUS EXP         ( Ast.plus  EXP1 EXP2 )
 	| EXP MINUS EXP        ( Ast.minus EXP1 EXP2 )
 	| EXP MUL   EXP        ( Ast.mul   EXP1 EXP2 )
-    | LBRAC EXP RBRAC      ( EXP) 
     (* |CONST                 ( Ast.const CONST     ) *)
 
 STMT : PRINTLN EXP       (Ast.println EXP)
     |  VARIABLE ASSIGN EXP    (Ast.assign VARIABLE EXP)
     | FOR VARIABLE EQUAL CONST TO CONST NEWLINE DO NEWLINE STMTS DONE   (Ast.for VARIABLE CONST1 CONST2 STMTS) 
 
-    (* | EXP DIV   EXP        ( Ast.divi   EXP1 EXP2 ) *)
+    (* | EXP DIV   EXP        ( Ast.divi   EXP1 EXP2 )
+    | LBRAC EXP RBRAC      ( EXP) *)
  
